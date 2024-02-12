@@ -3541,3 +3541,99 @@ int playgame(struct lasami* puser1 ,struct lasami* puser2 ) {
 }
 
 
+int main() {
+    int maxId;
+    struct lasami* puser1 = NULL ;
+    struct lasami* puser2 = NULL ;
+    struct lasami* phead = NULL;
+    phead = read_from_file(&maxId);    
+    
+    while(1) {
+
+        switch (login_page())
+        {
+        case 1:
+        if(puser1==NULL){
+            puser1=sign_up(phead,maxId);
+        }
+        else if(puser2 == NULL){
+            puser2=sign_up(phead,maxId); 
+        }
+        else {
+            system("cls");
+            printf("first log out");
+            _getch();
+        }
+            break;
+
+        case 2:
+        if(puser1==NULL){
+            puser1=sign_in(phead);
+        }
+        else if(puser2 == NULL){
+            puser2=sign_in(phead);    
+        }
+        else 
+        {
+            system("cls");
+            printf("first log out");
+            _getch();        
+        }
+        
+        break;
+        case 3:
+        if(puser1 && puser2)
+        {
+            playgame(puser1, puser2);
+            break;
+        }
+        else
+        {
+            system("cls");
+            printf("you should first login");
+            _getch();
+            break;
+        }
+        case 4:
+            if(puser1==NULL)
+            {
+                system("cls");
+                printf("you should log in first");
+            }
+            else
+            {
+                if(puser2==NULL)
+                {
+                    change_info(puser1,phead);
+                    break;
+                }
+                while(1)
+                {
+                    int n;
+                    system("cls");
+                    printf("1 or 2 ?");
+                    scanf("%d",&n);
+                    if(n==1)
+                    {
+                        change_info(puser1,phead);
+                        break;
+
+                    }
+                    if(n==2)
+                    {
+                        change_info(puser2,phead);
+                        break;
+                    }
+                }
+            }
+            break;
+        case 5:
+            history(puser1 , puser2);
+            break;
+        case 6:
+            exit(0);
+        
+        }
+
+    }
+}
