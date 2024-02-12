@@ -480,10 +480,11 @@ void change_info(struct lasami* puser ,struct lasami* phead ) {
 
 void history(struct lasami* puser1 ,struct lasami* puser2 ){
     system("cls");
-    printf("%s\t\t\t\t\t\t%d\t\t\t\t\t%d\n",puser1->info.username,puser1->info.win,puser1->info.lose);
-    printf("%s\t\t\t\t\t\t%d\t\t\t\t\t%d\n",puser2->info.username,puser2->info.win,puser2->info.lose);
     FILE* history;
-    history = fopen("E:\\Ali\\sanati\\programing\\paianterm\\histori.bin","a+b");
+    history = fopen("E:\\Ali\\sanati\\programing\\paianterm\\histori.bin","r+b");
+    if (history == NULL) {
+        history = fopen("E:\\Ali\\sanati\\programing\\paianterm\\histori.bin", "w+b");
+    }
     
 }
 
@@ -897,8 +898,8 @@ COORD shot_s(COORD* player1_bullet, char zamin[30][99] , int* ajazeh, int height
                     {
                                                             puser2->info.lose++;
                                     puser1->info.win++;
-                        win_player1();
-                        lose_player2();
+                        //win_player1();
+                        //lose_player2();
                     }                            
                 }
                 else if(zamin[player1_bullet->Y -1 ][player1_bullet->X] == '1')
@@ -926,8 +927,9 @@ COORD shot_s(COORD* player1_bullet, char zamin[30][99] , int* ajazeh, int height
                     {
                                                             puser1->info.lose++;
                                     puser2->info.win++;
-                        win_player2();
+                        /*win_player2();
                         lose_player1();                                
+                    */
                     }                            
                 }                           
             }
@@ -1024,8 +1026,8 @@ COORD shot_s(COORD* player1_bullet, char zamin[30][99] , int* ajazeh, int height
                 {
                                                         puser1->info.lose++;
                                     puser2->info.win++;
-                    win_player2();
-                    lose_player1();
+                    //win_player2();
+                    //lose_player1();
                 }
             }                   
             if (player1_bullet->Y == height || player1_bullet->Y == 0 ) 
@@ -3542,6 +3544,8 @@ int playgame(struct lasami* puser1 ,struct lasami* puser2 ) {
 
 
 int main() {
+    char filename[] = "E:\\Ali\\sanati\\programing\\paianterm\\game.wav";
+    PlaySound(filename, NULL, SND_FILENAME | SND_ASYNC);
     int maxId;
     struct lasami* puser1 = NULL ;
     struct lasami* puser2 = NULL ;
