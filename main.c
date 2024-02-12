@@ -366,3 +366,124 @@ struct lasami* sign_in(struct lasami* phead) {
     }
 }
 
+
+void change_info(struct lasami* puser ,struct lasami* phead ) {
+    system("cls");
+    int i =0;
+    char pass[40];
+    char confirmpass[20];
+    char email[20];
+    char key ;
+    struct lasami* ptemp = phead;
+    char name[40];
+    int input = 0 ;
+    while(1) {
+        system("cls");
+        printf("change name enter 1\nchange pass enter 2\nchange email enter 3\n enter : 4 finish");
+        scanf("%d",&input);
+
+        if (input==1){
+            system("cls");
+            printf("enter your new name :\n");
+            scanf("%s",name);
+            while(1){
+                    if(strcmp(ptemp->info.username , name) == 0){
+                        //name karbari vojod dard yek nam digar vared konid
+                        system("cls");
+                        printf("name tekrari ast pleas enter again name\n");
+                        scanf("%s",name);
+                        ptemp = phead ;
+                        _getch();
+                        continue;
+                    }
+                    else{
+                        ptemp=ptemp->pnext;    
+                    }
+                    if(ptemp== NULL){
+                        //strcmp(ptemp->info.username,name);
+                    break;
+                    }
+            }
+        
+        strcpy(puser->info.username,name);
+        }
+        
+        else if(input==2) {
+            while(1)
+            {
+                i = 0;
+                pass[i] = '\0';
+                while(key != '\r' && key != ' ')
+                {
+                    
+                    key = _getch();
+                    if(key == '\b' && i>=0)
+                    {
+                        pass[i] = '\0';
+                        i--;
+                        printf("\b");
+                    }
+                    else 
+                    {
+                        pass[i]=key;
+                        i++;
+                        printf("*");
+                    }
+                    if(strlen(pass) >= 8){
+
+                        while(key != '\r' && key != ' ')
+                        {
+                            
+                            key = _getch();
+                            if(key == '\b')
+                            {
+                                confirmpass[i] = '\0';
+                                i--;
+                                printf("\b");
+                            }
+                            else 
+                            {
+                                confirmpass[i]=key;
+                                i++;
+                                printf("*");
+                            }
+
+                        }
+                        if(strcmp(pass,confirmpass) != 0 )
+                        {
+                            continue;
+                        }
+
+                    }
+                    else{
+                        strcpy(puser->info.password,pass);
+                        break;
+                    }
+                }
+            }
+
+        }    
+        /////////////////
+    if(input==3)
+    {
+        system("cls");
+        printf("enter your email:");
+        scanf("%s",email);
+        strcpy(puser->info.email,email);
+    }    
+    if(input==4)
+    {
+        return;
+    }
+    }
+}
+
+void history(struct lasami* puser1 ,struct lasami* puser2 ){
+    system("cls");
+    printf("%s\t\t\t\t\t\t%d\t\t\t\t\t%d\n",puser1->info.username,puser1->info.win,puser1->info.lose);
+    printf("%s\t\t\t\t\t\t%d\t\t\t\t\t%d\n",puser2->info.username,puser2->info.win,puser2->info.lose);
+    FILE* history;
+    history = fopen("E:\\Ali\\sanati\\programing\\paianterm\\histori.bin","a+b");
+    
+}
+
