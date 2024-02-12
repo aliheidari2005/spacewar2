@@ -3500,4 +3500,12 @@ int playgame(struct lasami* puser1 ,struct lasami* puser2 ) {
 }
 
 
+COORD moveDirection(COORD position, int dx, int dy) {
+        // Check if the next position is not a wall            
+                position.X += dx;
+                position.Y += dy;
+                return position;
+}
+
+
 
