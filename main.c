@@ -96,3 +96,43 @@ char login_page() {
 	} while(n != 6);
 }
 
+
+struct lasami* read_from_file(int *maxId)
+{
+    FILE *pfile;
+    pfile = fopen("E:\\Ali\\sanati\\programing\\paianterm\\asami.bin" , "r+b");
+    if (pfile == NULL) {
+        pfile = fopen("E:\\Ali\\sanati\\programing\\paianterm\\asami.bin" , "W+b");
+    }
+    struct lasami *phead = NULL, *pnew, *plast = NULL;
+    struct asami temp;
+    while(fread(&temp, sizeof(struct asami), 1, pfile))
+    {
+        pnew = (struct lasami *)malloc(sizeof(struct lasami));
+        pnew->pnext = NULL;
+        if(phead == NULL)
+        {
+            phead = pnew;
+        }
+        else
+        {
+            plast->pnext = pnew;
+        }
+        pnew->info = temp;
+        plast = pnew;
+    }
+    fclose(pfile);
+    if(phead == NULL)
+    {
+        phead = (struct lasami*)malloc(sizeof(struct lasami));
+        phead->pnext = NULL;
+        phead->info.ID = 0;
+        *maxId = 0;
+    }
+    else
+    {
+        *maxId = pnew->info.ID;
+    }
+    return phead;
+}
+
