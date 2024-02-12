@@ -1443,3 +1443,241 @@ COORD shot_a(COORD* player1_bullet, char zamin[30][99] , int* ajazeh, int width,
 
 }
 
+
+COORD shot_i(COORD* player2_bullet, char zamin[30][99] , int* ajazeh2, int height , BOOL* player2bulletmoving , int* y,struct lasami* puser1 ,struct lasami* puser2 ) {
+    if (player2_bullet->Y != -1 && zamin[player2_bullet->Y -1][player2_bullet->X ] != -37 && zamin[player2_bullet->Y -1][player2_bullet->X ] != '2' && zamin[player2_bullet->Y -1][player2_bullet->X ] != '1' ) 
+    {            
+        if (zamin[player2_bullet->Y - 1][player2_bullet->X] == -70)
+        {
+            if(narenjak==1)
+            {
+                miror[i]= (COORD) {player2_bullet->Y-1,player2_bullet->X};
+                i++;
+                
+                //return player1_bullet ;
+                // پاک کردن ایینه 
+                for(int i = player2_bullet->Y-2 ; i<= player2_bullet->Y+1 ; i++) {
+                    for(int j= player2_bullet->X-1 ; j<= player2_bullet->X+1;j++) {
+                        if(zamin[i][j]=='2' || zamin[i][j]=='1')
+                        {
+                            if(zamin[i][j]=='1')
+                            {
+                                gamer1.health--;
+                                if(gamer1.health==0)
+                                {
+                                                                  puser1->info.lose++;
+                                    puser2->info.win++;
+                                }
+                            }
+                            else if(zamin[i][j]=='2')
+                            {
+                                gamer2.health--;
+                                if(gamer2.health==0)
+                                {
+                                                                puser2->info.lose++;
+                                    puser1->info.win++;
+                                }
+                            }
+                            else if(zamin[i][j]=='2' && zamin[i][j]=='1')
+                            {
+                                gamer1.health--;
+                                if(gamer1.health==0)
+                                {
+                                                                  puser1->info.lose++;
+                                    puser2->info.win++;
+                                }                                
+                                gamer2.health--;
+                                if(gamer2.health==0)
+                                {
+                                                                puser2->info.lose++;
+                                    puser1->info.win++;
+                                }                            
+                            }
+
+                        
+                        }
+                    }
+                }
+                player2_bullet->X = -1;
+                player2_bullet->Y  = -1;
+                *player2bulletmoving = FALSE;
+                *y=0;
+                narenjak=0;
+                *ajazeh2=4;
+                return miror[i-1];      
+            }
+            else if(narenjak==0)
+            {
+                if(zamin[player2_bullet->Y +1 ][player2_bullet->X] != -37 && zamin[player2_bullet->Y +1 ][player2_bullet->X] != -70 && zamin[player2_bullet->Y +1 ][player2_bullet->X] != '2' && zamin[player2_bullet->Y +1 ][player2_bullet->X] != '1') 
+                {
+                    player2_bullet->Y++;
+                    *ajazeh2=1;
+                    
+                }
+            
+                else if(zamin[player2_bullet->Y +1 ][player2_bullet->X ] == -70)
+                {
+                    player2_bullet->Y--;
+                    *ajazeh2=4;
+                } 
+                else if(zamin[player2_bullet->Y +1][player2_bullet->X ] == -37)
+                {
+                    player2_bullet->X = -1;
+                    player2_bullet->Y = -1;
+                    *player2bulletmoving = FALSE;
+                    *y=0;
+                    *ajazeh2=1;
+                }
+                
+                else if(zamin[player2_bullet->Y +1][player2_bullet->X ] == '1')
+                {
+                    player2_bullet->X = -1;
+                    player2_bullet->Y = -1;
+                    *player2bulletmoving = FALSE;
+                    *y=0;                    
+                   // *ajazeh=0;
+
+                    if(shot==5)
+                    {
+                        gamer1.health=gamer1.health-2 ;
+                        countershotdoganeh++;
+                        if(countershotdoganeh==5)
+                        {
+                            countershotdoganeh=0;
+                            shot = 0;
+                        }
+                    }
+                    else if(shot != 5)
+                    {
+                        gamer1.health=gamer1.health-1 ;
+                        
+                    } 
+                    if(gamer1.health==0)
+                    {
+                                                                                        puser1->info.lose++;
+                                    puser2->info.win++;
+                    }    
+                                
+                }
+                            
+                else if(zamin[player2_bullet->Y +1][player2_bullet->X ] == '2')
+                {
+                    player2_bullet->X = -1;
+                    player2_bullet->Y = -1;
+                    *player2bulletmoving = FALSE;
+                    *y=0;
+                    //*ajazeh=0;
+
+                    if(shot==5)
+                    {
+                     //   gamer1.shot-- ;
+                        gamer2.health=gamer2.health-2 ;
+                        countershotdoganeh++;
+                        if(countershotdoganeh==5)
+                        {
+                            countershotdoganeh=0;
+                            shot = 0;
+                        }
+                    }
+                    else if(shot != 5)
+                    {
+                        gamer2.health=gamer2.health-1 ;
+                        
+                    } 
+                    if(gamer2.health==0)
+                    {
+                        system("cls");
+                        zamin1=1;
+                                                                                puser2->info.lose++;
+                                    puser1->info.win++;
+                    }                              
+                }                       
+            }
+        }
+        else if(zamin[player2_bullet->Y+1][player2_bullet->X ] != -70)
+        {
+            player2_bullet->Y--;
+        }                                                
+    }
+    else if(zamin[player2_bullet->Y -1][player2_bullet->X ] == -37 )
+    {
+
+        player2_bullet->X = -1;
+        player2_bullet->Y = -1;
+        *player2bulletmoving = FALSE;
+        *y=0;
+        if(narenjak==1)
+        {
+            for(int i = player2_bullet->Y -3 ; i <= player2_bullet->Y+1 ; i++ ){
+                for(int j = player2_bullet->X -2 ; j <= player2_bullet->X -2 ; j++){
+                    if(zamin[i][j] == '2')
+                    {
+                        gamer1.health--;                        
+                    }
+                }
+            }
+            narenjak = 0;
+        }
+    }
+    else if(rooh2==TRUE)
+    {
+        player2_bullet->Y--;
+        if(zamin[player2_bullet->Y-1][player2_bullet->X]=='2')
+        {
+            player2_bullet->X=-1;
+            player2_bullet->Y=-1;
+            *player2bulletmoving = FALSE;            
+            *y=0;
+            gamer2.health--;
+            if(gamer2.health==0)
+            {                                                                puser2->info.lose++;
+                                    puser1->info.win++;
+                zamin1=1;
+            }
+        }
+    }
+
+
+
+
+
+    else if(zamin[player2_bullet->Y -1][player2_bullet->X ] == '2')
+    {
+        player2_bullet->X = -1;
+        player2_bullet->Y = -1;
+        *player2bulletmoving = FALSE;
+        *y=0;
+        gamer2.health--;
+        if(narenjak==1)
+        {
+            narenjak=0;
+        }
+        if(gamer2.health==0)
+        {                                                                puser2->info.lose++;
+                                    puser1->info.win++;
+        }                           
+            
+    }
+    else if(zamin[player2_bullet->Y -1][player2_bullet->X ] == '1')
+    {
+        player2_bullet->X = -1;
+        player2_bullet->Y = -1;
+        *player2bulletmoving = FALSE;
+        *y=0;
+        gamer1.health--;
+        if(gamer1.health==0)
+        {
+                                                                              puser1->info.lose++;
+                                    puser2->info.win++;
+        }                       
+    }
+    if (player2_bullet->Y >= height || player2_bullet->Y < 0 ) 
+    {
+        *player2bulletmoving = FALSE;
+        player2_bullet->X = -1;
+        player2_bullet->Y = -1;
+        *y=0;
+    }
+
+}
+
