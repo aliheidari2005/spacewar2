@@ -1903,4 +1903,226 @@ COORD shot_k(COORD* player2_bullet, char zamin[30][99] , int* ajazeh2, int heigh
 }
 }
 
+COORD shot_l(COORD* player2_bullet, char zamin[30][99] , int* ajazeh2, int height , BOOL* player2bulletmoving , int* y,struct lasami* puser1 ,struct lasami* puser2 ){
+    if (player2_bullet-> X != -1 && zamin[player2_bullet->Y][player2_bullet->X +1 ] != -37 && zamin[player2_bullet->Y][player2_bullet->X +1 ] != '2' && zamin[player2_bullet->Y][player2_bullet->X +1 ] != '1'&& rooh2== FALSE ) 
+    {            
+        if (zamin[player2_bullet->Y][player2_bullet->X + 1] == -70)
+        {
+            if(narenjak==1)
+            {
+
+                miror[i]= (COORD) {player2_bullet->Y,player2_bullet->X+1};
+                i++;
+
+                for(int i = player2_bullet->Y -1 ; i<= player2_bullet->Y+1 ; i++){
+                    for(int j= player2_bullet->X-1 ; j<= player2_bullet->X+1;j++){
+                        if(zamin[i][j]=='2' || zamin[i][j]=='1')
+                        {
+                            if(zamin[i][j]=='1')
+                            {
+                                gamer1.health--;
+                                if(gamer1.health==0)
+                                {
+                                                                        puser1->info.lose++;
+                                    puser2->info.win++;
+                                    zamin1=1;
+                                }
+                            }
+                            if(zamin[i][j]=='2')
+                            {
+                                gamer2.health--;
+                                if(gamer2.health==0)
+                                {                                    puser2->info.lose++;
+                                    puser1->info.win++;
+                                    zamin1=1;
+
+                                }
+                            }
+
+                        }
+                    }
+                }
+
+                player2_bullet->X = -1;
+                player2_bullet->Y = -1;                        
+                *player2bulletmoving = FALSE;
+                *y=0;
+                narenjak=0;
+                *ajazeh2=3;
+                return miror[i-1];  
+            }
+            else if(narenjak==0)
+            {
+
+                if(zamin[player2_bullet->Y][player2_bullet->X - 1] != -37 && zamin[player2_bullet->Y][player2_bullet->X - 1] != -70 && zamin[player2_bullet->Y][player2_bullet->X -1 ] != '2' && zamin[player2_bullet->Y][player2_bullet->X  -1 ] != '1'  ) 
+                {
+                    player2_bullet->X--;
+                    *ajazeh2=2;
+                }
+                else if(zamin[player2_bullet->Y][player2_bullet->X - 1] == -70){
+                    player2_bullet->X++;
+                    *ajazeh2=3;
+                }
+                else if(zamin[player2_bullet->Y][player2_bullet->X - 1] == -37){
+                    *player2bulletmoving = FALSE;
+                    player2_bullet->X = -1;
+                    player2_bullet->Y = -1;
+                    *y= 0;
+                    *ajazeh2=2;
+
+                }
+                else if(zamin[player2_bullet->Y][player2_bullet->X - 1] == '2'){
+                    player2_bullet->X = -1;
+                    player2_bullet->Y = -1;
+                    *player2bulletmoving = FALSE;
+                    *y = 0;
+                    if(shot2==5)
+                    {
+                        gamer2.health=gamer2.health-2 ;
+                        countershotdoganeh++;
+                        if(countershotdoganeh2==5)
+                        {
+                            countershotdoganeh2=0;
+                            shot2 = 0;
+                        }
+                    }      
+                    else if(shot2!=5)
+                    {
+                        gamer2.health-- ;                        
+                    }
+                    if(gamer2.health==0)
+                    {                                    puser2->info.lose++;
+                                    puser1->info.win++;
+                        zamin1=1;
+                      
+                    }                                                                    
+                }
+                else if(zamin[player2_bullet->Y][player2_bullet->X - 1] == '1') {
+                    player2_bullet->X = -1;
+                    player2_bullet->Y = -1;
+                    *player2bulletmoving = FALSE;
+                    *y = 0;                            
+                    if(shot2==5)
+                    {
+                        gamer1.health-=2 ;
+                        countershotdoganeh2++;
+                        if(countershotdoganeh2==5)
+                        {
+                            countershotdoganeh2=0;
+                            shot2 = 0;
+                        }
+                    }
+                    else if(shot2 != 5)
+                    {
+                        gamer1.health=gamer1.health-1 ;
+                        
+                    }                                        
+                    if(gamer1.health==0)
+                    {
+                                                                                          puser1->info.lose++;
+                                    puser2->info.win++;                             
+                    }                 
+                
+                
+                
+                }
+            }                                                                            
+        }
+                else if(zamin[player2_bullet->Y][player2_bullet->X + 1] != -70){
+                    player2_bullet->X++;
+                }                                                
+        }
+            else if(rooh2==TRUE)
+    {
+        player2_bullet->X++;
+
+    }       
+                else if(zamin[player2_bullet->Y][player2_bullet->X +1 ] == -37 ){
+
+       if(narenjak==1)
+        {
+            for(int i = player2_bullet->Y -2 ; i <= player2_bullet->Y+2 ; i++ ){
+                for(int j = player2_bullet->X -2 ; j <= player2_bullet->X +2 ; j++){
+                    if(zamin[i][j] == '2')
+                    {
+                        gamer2.health--;                        
+                        if(gamer2.health==0)
+                        {
+                                                                puser2->info.lose++;
+                                    puser1->info.win++;
+                            //return;
+                        }
+                    }
+                    if(zamin[i][j] == '1')
+                    {
+                        gamer1.health--;
+                        if(gamer1.health==0)
+                        {                                                                  puser1->info.lose++;
+                                    puser2->info.win++;
+                         //   return;
+                        }
+                    }
+                }
+            }
+            narenjak = 0;
+        }
+
+
+                    player2_bullet->X = -1;
+                    player2_bullet->Y = -1;
+                    *player2bulletmoving = FALSE;
+                    *y = 0;
+                }
+                else if(zamin[player2_bullet->Y][player2_bullet->X + 1] == '2'){
+                    player2_bullet->X = -1;
+                    player2_bullet->Y = -1;
+                    *player2bulletmoving = FALSE;
+                    *y = 0;            
+        if(shot2==5)
+        {
+            gamer2.health=gamer2.health-2;
+            countershotdoganeh2++;
+            if(countershotdoganeh2==5)
+            {
+                countershotdoganeh2=0;
+                shot2=0;
+            }    
+        }
+        else
+        {
+            gamer2.health--;
+            if(narenjak==1)
+            {
+                narenjak=0;
+            }
+            if(gamer2.health==0){
+                                                                                puser2->info.lose++;
+                                    puser1->info.win++;
+              
+                zamin1=1;
+            }
+        }   
+                                     
+                }
+                else if(zamin[player2_bullet->Y][player2_bullet->X + 1] == '1'){
+                    player2_bullet->X = -1;
+                    player2_bullet->Y = -1;
+                    *player2bulletmoving = FALSE;
+                    gamer1.health--;
+                    *y = 0;
+                    if(gamer1.health==0){
+                                                                                   puser1->info.lose++;
+                                    puser2->info.win++;
+                    }                            
+                }                        
+                if (player2_bullet->X >= width) {
+                    *player2bulletmoving = FALSE;
+                    player2_bullet->X = -1;
+                    player2_bullet->Y = -1;
+                    *y = 0;            
+                }
+
+}
+
+
 
