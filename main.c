@@ -488,6 +488,47 @@ void history(struct lasami* puser1 ,struct lasami* puser2 ){
 }
 
 
+void saveData(struct lasami* phead)
+{
+    FILE *pFile;
+    pFile = fopen("E:\\Ali\\sanati\\programing\\paianterm\\asami.bin", "wb");
+    while(phead)
+    {
+
+            fwrite(&phead->info, sizeof(struct asami), 1, pFile);
+        
+        phead = phead->pnext;
+    }
+}
+
+
+
+
+COORD moveDirection(COORD position, int dx, int dy) {
+        // Check if the next position is not a wall            
+                position.X += dx;
+                position.Y += dy;
+                return position;
+}
+
+
+BOOL keyPressed(int key) {
+    //This function returns a short integer that indicates whether a particular key is pressed or not.
+    return GetAsyncKeyState(key);
+    //returns a non-zero value if the key is currently pressed. If not, it will return 0.
+}
+
+typedef struct mygamer
+{
+    int health ;
+    int shot ;
+
+}mygamer;
+
+mygamer gamer1;
+mygamer gamer2;
+
+
 COORD shot_w(COORD* player1_bullet, char zamin[30][99] , int* ajazeh, int height , BOOL* player1bulletmoving , int*x ,struct lasami* puser1 ,struct lasami* puser2 ) {
 
     if (player1_bullet->Y != -1 && zamin[player1_bullet->Y -1][player1_bullet->X ] != -37 && zamin[player1_bullet->Y -1][player1_bullet->X ] != '2' && zamin[player1_bullet->Y -1][player1_bullet->X ] != '1' && rooh1== FALSE ) 
@@ -3498,21 +3539,5 @@ int playgame(struct lasami* puser1 ,struct lasami* puser2 ) {
     
     return 0 ;
 }
-
-
-COORD moveDirection(COORD position, int dx, int dy) {
-        // Check if the next position is not a wall            
-                position.X += dx;
-                position.Y += dy;
-                return position;
-}
-
-
-BOOL keyPressed(int key) {
-    //This function returns a short integer that indicates whether a particular key is pressed or not.
-    return GetAsyncKeyState(key);
-    //returns a non-zero value if the key is currently pressed. If not, it will return 0.
-}
-
 
 
