@@ -3508,4 +3508,11 @@ COORD moveDirection(COORD position, int dx, int dy) {
 }
 
 
+BOOL keyPressed(int key) {
+    //This function returns a short integer that indicates whether a particular key is pressed or not.
+    return GetAsyncKeyState(key);
+    //returns a non-zero value if the key is currently pressed. If not, it will return 0.
+}
+
+
 
