@@ -64,3 +64,35 @@ typedef struct histori{
 
 }histori;
 
+
+char login_page() {
+	int n;	
+//	printf("hi\n\n\n");
+    do {
+    	printf("Hi welcome to the game\nsign_up enter : 1\nsign_in enter : 2\nstart game:3\nchange info :4\nhistory:5\nexit : 6\n");
+    	scanf("%d",&n);
+		if(n==1)
+        	return n;
+    	
+        else if(n==2)
+        	return n;
+		
+        else if (n==3)
+        	return n;
+        
+        else if (n==4)
+        	return n;
+        
+        else if (n==5)
+        	return n;
+        
+        else if (n==6)
+        	exit(0);
+        
+        else {
+			printf("Invailid chose pleas try again");
+		}
+        system("cls");
+	} while(n != 6);
+}
+
