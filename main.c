@@ -2125,4 +2125,78 @@ COORD shot_l(COORD* player2_bullet, char zamin[30][99] , int* ajazeh2, int heigh
 }
 
 
+void shot_j(COORD* player2_bullet, char zamin[30][99] , int* ajazeh2, int height , BOOL* player2bulletmoving , int* y,struct lasami* puser1 ,struct lasami* puser2 ){
+                if (player2_bullet->X != -1 && zamin[player2_bullet->Y][player2_bullet->X - 1 ] != -37 && zamin[player2_bullet->Y][player2_bullet->X - 1 ] != '2' && zamin[player2_bullet->Y][player2_bullet->X - 1 ] != '1' ) {            
+                    if (zamin[player2_bullet->Y][player2_bullet->X - 1] == -70){
+                        if(zamin[player2_bullet->Y][player2_bullet->X + 1] != -37 && zamin[player2_bullet->Y][player2_bullet->X + 1] != -70 && zamin[player2_bullet->Y][player2_bullet->X + 1 ] != '2') {
+                            player2_bullet->X++;
+                            *ajazeh2 =3;
+                        }
+                        else if(zamin[player2_bullet->Y][player2_bullet->X + 1] == -70){
+                            player2_bullet->X--;
+                            *ajazeh2=2;
+                        } 
+                        else if(zamin[player2_bullet->Y][player2_bullet->X + 1] == -37){
+                            player2_bullet->X = -1;
+                            player2_bullet->Y = -1;
+                            *player2bulletmoving = FALSE;                    
+                            *y = 0;
+                        
+                        }
+                        else if(zamin[player2_bullet->Y][player2_bullet->X + 1 ] == '2'){
+                            player2_bullet->X = -1;
+                            player2_bullet->Y = -1;
+                            gamer2.health--;
+                            *player2bulletmoving = FALSE;                    
+                            *y = 0;
+                            if(gamer2.health==0){
+                                                                                            puser2->info.lose++;
+                                    puser1->info.win++;
+                            }
+                        }
+                    }
+                        else if(zamin[player2_bullet->Y][player2_bullet->X - 1] != -70){
+                            player2_bullet->X--;
+                        }                                                
+                }
+                        else if(zamin[player2_bullet->Y][player2_bullet->X  -1 ] == -37 ){
+                            player2_bullet->X = -1;
+                            player2_bullet->Y = -1;
+                            *player2bulletmoving = FALSE;
+                            *y = 0;
+              
+                        }
+                        else if(zamin[player2_bullet->Y][player2_bullet->X  -1 ] == '2' ){
+                            player2_bullet->X = -1;
+                            player2_bullet->Y = -1;
+                            *player2bulletmoving = FALSE;
+                            *y = 0;
+                            gamer2.health--;
+                            if(gamer2.health == 0){
+                                                                                             puser2->info.lose++;
+                                    puser1->info.win++;
+                            }
+                        }
+                        else if(zamin[player2_bullet->Y][player2_bullet->X  -1 ] == '1' ){
+                            player2_bullet->X = -1;
+                            player2_bullet->Y = -1;
+                            *player2bulletmoving = FALSE;
+                            *y = 0;
+                            gamer1.health--;
+                            if(gamer1.health==0){
+                                                                                               puser1->info.lose++;
+                                    puser2->info.win++;
+                                
+                            }
+
+                        }
+                        if (player2_bullet->X >= width || player2_bullet->X < 0 ) {
+                            *player2bulletmoving = FALSE;
+                            player2_bullet->X = -1;
+                            player2_bullet->Y = -1;
+                            *y = 0;
+                        }   
+}
+
+
 
